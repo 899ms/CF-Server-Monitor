@@ -16,7 +16,10 @@
         </div>
 
         <div class="form-group flex-1">
-          <label class="form-label">{{ trans.ghProxy }}</label>
+          <label class="form-label">
+            {{ trans.ghProxy }}
+            <HelpTooltip :text="trans.ghProxyTip" />
+          </label>
           <input
             type="text"
             list="ghProxyList"
@@ -42,6 +45,10 @@
         <div class="config-row">
           <span class="config-label">{{ trans.reportInterval }}</span>
           <span class="config-value">{{ formatWithUnit(reportInterval, 's') }}</span>
+        </div>
+        <div v-if="connectionMode === 'auto'" class="config-row">
+          <span class="config-label">{{ trans.wssReportInterval }}</span>
+          <span class="config-value">{{ formatWithUnit(wssReportInterval, 's') }}</span>
         </div>
         <div class="config-row">
           <span class="config-label">{{ trans.connectionMode }}</span>
@@ -108,6 +115,8 @@
 </template>
 
 <script setup>
+import HelpTooltip from '../../../components/HelpTooltip.vue'
+
 defineProps({
   trans: { type: Object, required: true },
   show: { type: Boolean, default: false },
@@ -116,6 +125,7 @@ defineProps({
   installGhProxy: { type: String, default: '' },
   collectInterval: { type: [Number, String], default: 0 },
   reportInterval: { type: [Number, String], default: 60 },
+  wssReportInterval: { type: [Number, String], default: 2 },
   connectionMode: { type: String, default: 'auto' },
   customCt: { type: String, default: '' },
   customCu: { type: String, default: '' },
